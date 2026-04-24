@@ -82,38 +82,45 @@ def graus_anova(num_grupos, total_obs):
     return entre, dentro
 
 # ====================== MENU ======================
-print("=" * 60)
-print("   CALCULADORA COMPLEXA - ESTATÍSTICA E PROBABILIDADE")
-print("   (roda no Programiz - só Python padrão)")
-print("=" * 60)
-print("0  → Desvio Médio")
-print("1  → Desvio Padrão Amostral")
-print("2  → Amplitude Amostral")
-print("3  → Média / Mediana / Moda / Min / Max")
-print("4  → Sturges (número de classes)")
-print("5  → Binomial - P(X >= k) em caixa")
-print("6  → Poisson - P(nenhum evento)")
-print("7  → Lote de peças - Probabilidade sem defeito")
-print("8  → Máquinas (Bayes) - Prob máquina C")
-print("9  → Probabilidade Condicional ('dado que')")
-print("A  → Coeficiente de Correlação")
-print("B  → Graus de Liberdade ANOVA")
-print("C  → Lambda Poisson + P(0)")
-print("D  → Probabilidade simples (ex: dado)")
-print("E  → Desvios Médio + Padrão juntos")
-print("F  → Tudo da lista de 20 pesos (padrão)")
-print("Q  → Sair")
-print("=" * 60)
+def ajuda():
+    print("=" * 60)
+    print("   CALCULADORA COMPLEXA - ESTATÍSTICA E PROBABILIDADE")
+    print("   (roda no Programiz - só Python padrão)")
+    print("=" * 60)
+    print("0  → Desvio Médio")
+    print("1  → Desvio Padrão Amostral")
+    print("2  → Amplitude Amostral")
+    print("3  → Média / Mediana / Moda / Min / Max")
+    print("4  → Sturges (número de classes)")
+    print("5  → Binomial - P(X >= k) em caixa")
+    print("6  → Poisson - P(nenhum evento)")
+    print("7  → Lote de peças - Probabilidade sem defeito")
+    print("8  → Máquinas (Bayes) - Prob máquina C")
+    print("9  → Probabilidade Condicional ('dado que')")
+    print("A  → Coeficiente de Correlação")
+    print("B  → Graus de Liberdade ANOVA")
+    print("C  → Lambda Poisson + P(0)")
+    print("D  → Probabilidade simples (ex: dado)")
+    print("E  → Desvios Médio + Padrão juntos")
+    print("F  → Tudo da lista de 20 pesos (padrão)")
+    print("Q  → Sair")
+    print("H  → Ajuda")
+    print("=" * 60)
 
 lista_padrao = [89, 99, 96, 89, 101, 75, 87, 90, 120, 85, 115, 80, 110, 116, 102, 105, 109, 100, 82, 110]
 alturas_padrao = [170, 160, 165, 178, 190, 189, 179, 167, 180, 192]
 pesos_padrao = [95, 100, 102, 110, 120, 117, 100, 98, 118, 120]
 
+ajuda()
 while True:
     op = input("\n> ").strip().upper()
     if op == "Q":
         print("Até a prova! Boa sorte amanhã!")
         break
+    
+    # H - Ajuda
+    elif op == "H":
+        ajuda()
 
     # 0 - Desvio Médio
     elif op == "0":
