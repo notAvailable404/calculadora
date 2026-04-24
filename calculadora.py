@@ -81,6 +81,18 @@ def graus_anova(num_grupos, total_obs):
     dentro = total_obs - num_grupos
     return entre, dentro
 
+def z_score(mu, sigma, x):
+    """Calcula o escore Z"""
+    return (x - mu) / sigma
+
+def area_tabela_normal(z):
+    """Retorna a área da tabela normal de 0 até |z| (exatamente o que as provas pedem)"""
+    return 0.5 * math.erf(abs(z) / math.sqrt(2))
+
+def poisson_ge1(lam):
+    """Probabilidade de pelo menos 1 defeito (P(X ≥ 1))"""
+    return 1 - poisson_p0(lam)
+
 # ====================== MENU ======================
 def ajuda():
     print("=" * 60)
@@ -103,6 +115,8 @@ def ajuda():
     print("D  → Probabilidade simples (ex: dado)")
     print("E  → Desvios Médio + Padrão juntos")
     print("F  → Tudo da lista de 20 pesos (padrão)")
+    print("G  → Distribuição Normal (Ex: Dias X com desvio de Y)")
+    print("I  → Poisson - P(pelo menos 1 defeito)")
     print("Q  → Sair")
     print("H  → Ajuda")
     print("=" * 60)
@@ -237,6 +251,34 @@ while True:
         print(f"[+] Amplitude      = {amplitude(dados):.0f}")
         print(f"[+] Desvio Médio   = {desvio_medio(dados):.1f}")
         print(f"[+] Desvio Padrão  = {desvio_padrao_amostral(dados):.2f}")
-
+    
+    # G - Distribuição Normal
+    elif op == "G":
+        print("\n=== DISTRIBUIÇÃO NORMAL (Z-score) ===")
+        mu = float(input("[?] Média (μ): (Ex: 850)\n> "))
+        sigma = float(input("[?] Desvio padrão (σ): (Ex: 40)\n> "))
+        x = float(input("[?] Valor de x: (Ex: 750, etc.)\n> "))
+        
+        z = z_score(mu, sigma, x)
+        area = area_tabela_normal(z)
+        
+        print(f"[+] Z-score                          = {z:.2f}")
+        print(f"[+] |Z|                              =  {abs(z):.2f}")
+        print(f"[+] Probabilidade exata P(X ≤ {x}) ≈  {0.5 * (1 + math.erf(z / math.sqrt(2))):.4f}")
+        print(f"[+] Área 0 a |Z|                     =  {area:.4f}  ← VALOR DA TABELA")
+        
+    # I - Poisson Pelo menos 1 defeito
+    elif op == "I":
+        print("\n=== POISSON - PELO MENOS 1 DEFEITO ===")
+        print("Exemplo: 5 defeitos em cada 1000 artigos, amostra de 8000")
+        defeitos_por_1000 = float(input("[?] Média de defeitos em cada 1000 artigos:\n> "))
+        n = float(input("[?] Tamanho da amostra (número de artigos):\n> "))
+        
+        lam = (defeitos_por_1000 / 1000) * n
+        p = poisson_ge1(lam)
+        
+        print(f"[+] λ (lambda)   = {lam:.4f}")
+        print(f"[+] P(X ≥ 1)     = {p:.4f}   ← RESPOSTA DA PROVA")
+    
     else:
         print("Opção inválida. Digite 0-F ou Q.")
